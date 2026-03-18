@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/tfwilliams/public_html/hosting/net/williatf
+    - /bin/cp -R * $DEPLOYPATH
