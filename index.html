@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>williatf.net — Todd Williams</title>
+  <meta name="description" content="Todd Williams — practical engineering: trading systems, homelab, automation, and software." />
+  <meta name="theme-color" content="#0b0f12" />
+  <style>
+    /* ========================
+       Global design variables
+       ======================== */
+    :root{
+      --bg: #071018;           /* page background */
+      --panel: #0e1620;        /* card background */
+      --muted: #98a3af;        /* muted text */
+      --text: #e6eef3;         /* primary text */
+      --accent: #39c0a0;       /* soft teal accent */
+      --accent-2: #6fb3ff;     /* secondary accent */
+      --glass: rgba(255,255,255,0.03);
+      --radius: 12px;
+      --max-width: 1100px;
+      --gap: 20px;
+    }
+
+    /* ========================
+       Base resets & typography
+       ======================== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,var(--bg),#061018 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:32px 24px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    /* ========================
+       Top navigation
+       ======================== */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .logo{
+      width:44px;
+      height:44px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      color:#042025;
+      box-shadow:0 4px 18px rgba(0,0,0,0.5);
+      flex:0 0 44px;
+    }
+    nav{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .nav-link{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:8px;
+      font-size:15px;
+    }
+    .nav-link:hover{color:var(--text); background:var(--glass)}
+    .cta{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#042025;
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:600;
+    }
+
+    /* Mobile menu toggle */
+    .menu-toggle{
+      display:none;
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.04);
+      padding:6px 8px;
+      border-radius:8px;
+      color:var(--muted);
+    }
+
+    /* ========================
+       Hero
+       ======================== */
+    .hero{
+      display:flex;
+      gap:24px;
+      align-items:center;
+      margin-bottom:28px;
+    }
+    .hero-left{
+      flex:1 1 520px;
+      min-width:0;
+    }
+    h1{
+      margin:0 0 12px 0;
+      font-size:clamp(24px,4.2vw,36px);
+      letter-spacing:-0.02em;
+    }
+    .subtitle{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:16px;
+    }
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#042025;
+      box-shadow:0 6px 18px rgba(28,139,120,0.08);
+    }
+
+    /* Small informational panel on right */
+    .hero-card{
+      width:320px;
+      max-width:38%;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--radius);
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.03);
+      color:var(--muted);
+      flex-shrink:0;
+    }
+    .meta{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      font-size:14px;
+    }
+    .meta strong{color:var(--text); font-weight:600}
+
+    /* ========================
+       Sections & cards
+       ======================== */
+    section.card{
+      background:var(--panel);
+      border-radius:var(--radius);
+      padding:20px;
+      margin-bottom:20px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .section-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:var(--gap);
+    }
+    .project{
+      background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
+      padding:14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .project h4{margin:0 0 8px 0;}
+    .muted{color:var(--muted); font-size:14px}
+
+    /* Focus list */
+    ul.focus-list{margin:8px 0 0 18px; color:var(--muted)}
+
+    footer{
+      color:var(--muted);
+      margin-top:18px;
+      font-size:13px;
+    }
+
+    /* ========================
+       Responsive adjustments
+       ======================== */
+    @media (max-width:920px){
+      .hero{flex-direction:column-reverse; align-items:flex-start}
+      .hero-card{width:100%; max-width:none}
+      .grid{grid-template-columns:1fr}
+      header{align-items:flex-start}
+      .menu-toggle{display:inline-block}
+      nav{display:none}
+    }
+    @media (max-width:480px){
+      body{padding:18px}
+      h1{font-size:22px}
+    }
+
+    /* subtle hover */
+    .project:hover, .card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header / Navigation -->
+    <header>
+      <!-- Brand: small logo + site name -->
+      <a href="#top" class="brand" aria-label="williatf.net home">
+        <div class="logo" aria-hidden="true">TW</div>
+        <div>
+          <div style="font-weight:700">Todd Williams</div>
+          <div style="font-size:13px;color:var(--muted)">practical engineering</div>
+        </div>
+      </a>
+
+      <!-- Navigation (hidden on small screens) -->
+      <nav role="navigation" aria-label="Main navigation">
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#focus">Current Focus</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link cta" href="#contact">Contact</a>
+      </nav>
+
+      <!-- Mobile menu toggle -->
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav">Menu</button>
+    </header>
+
+    <!-- Mobile nav (inserted via JS for small screens) -->
+    <div id="mobileNav" style="display:none; margin-bottom:16px;"></div>
+
+    <!-- HERO: strong headline, short intro, two CTA buttons -->
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero-left">
+          <h1 id="hero-heading">Thoughtful engineering, built to last.</h1>
+          <p class="subtitle">
+            I design and run software and systems that solve practical problems — algorithmic trading, homelab infrastructure,
+            automation, and reliable developer tools. Work that favors clarity and durability over flash.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">Projects</a>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+        </div>
+
+        <!-- Small right-side card with quick facts -->
+        <aside class="hero-card" aria-hidden="false">
+          <div class="meta">
+            <div style="font-size:13px;color:var(--muted)">Role</div>
+            <strong>Retired Engineer</strong>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="meta">
+            <div style="font-size:13px;color:var(--muted)">Focus</div>
+            <div class="muted">Software, automation, trading systems, homelab</div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ABOUT: short paragraph about background and approach -->
+      <section id="about" class="card" aria-labelledby="about-heading">
+        <div class="section-title">
+          <h3 id="about-heading" style="margin:0">About</h3>
+        </div>
+        <p class="muted" style="margin:0">
+          I'm Todd — an engineer who prefers building dependable, maintainable systems. I approach problems with an
+          emphasis on measurable outcomes, automation where it helps, and tools that make teams (or one person) more effective.
+          Pragmatism and curiosity guide the work.
+        </p>
+      </section>
+
+      <!-- PROJECTS: four categories with short descriptions -->
+      <section id="projects" class="card" aria-labelledby="projects-heading">
+        <div class="section-title">
+          <h3 id="projects-heading" style="margin:0">Projects</h3>
+          <div class="muted">Categories summarizing active and past work</div>
+        </div>
+
+        <div class="grid" role="list">
+          <article class="project" role="listitem" aria-labelledby="p1">
+            <h4 id="p1">Trading Systems</h4>
+            <p class="muted">Design and run automated strategies with robust backtesting, risk controls, and deployable execution engines. Emphasis on reproducibility and observability.</p>
+          </article>
+
+          <article class="project" role="listitem" aria-labelledby="p2">
+            <h4 id="p2">Homelab / Infrastructure</h4>
+            <p class="muted">Self-hosted services, virtualization, and resilient home infrastructure: networking, monitoring, and configuration as code for reliable operations.</p>
+          </article>
+
+          <article class="project" role="listitem" aria-labelledby="p3">
+            <h4 id="p3">Software Tools</h4>
+            <p class="muted">Utilities and libraries that make development and ops smoother — CLI tools, small services, and integrations focused on clarity and testability.</p>
+          </article>
+
+          <article class="project" role="listitem" aria-labelledby="p4">
+            <h4 id="p4">Experimental / Camera / Other</h4>
+            <p class="muted">Side experiments: data wrangling, camera projects, and exploratory hacks that often seed practical improvements elsewhere.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- CURRENT FOCUS: short bullet list -->
+      <section id="focus" class="card" aria-labelledby="focus-heading">
+        <div class="section-title">
+          <h3 id="focus-heading" style="margin:0">Current Focus</h3>
+          <div class="muted">What I'm working on now</div>
+        </div>
+
+        <ul class="focus-list">
+          <li>Improving strategy backtests with more realistic execution and risk models</li>
+          <li>Consolidating homelab monitoring and automated recovery flows</li>
+          <li>Small, reusable dev tools for deployment automation and observability</li>
+          <li>Experimenting with on-device camera pipelines for low-latency capture</li>
+        </ul>
+      </section>
+
+      <!-- CONTACT: simple placeholder -->
+      <section id="contact" class="card" aria-labelledby="contact-heading">
+        <div class="section-title">
+          <h3 id="contact-heading" style="margin:0">Contact</h3>
+          <div class="muted">Simple, low-friction options</div>
+        </div>
+
+        <p class="muted" style="margin:0 0 12px 0">
+          Email: <a href="mailto:todd@williatf.net" style="color:var(--accent)">todd@williatf.net</a> — or use this space to add a contact form later. (Address shown as a placeholder.)
+        </p>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div class="muted">© Todd Williams — williatf.net</div>
+          <div class="muted" aria-hidden="true">Built for clarity & reliability</div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Minimal JS for mobile nav toggle and smooth scrolling -->
+  <script>
+    // Mobile menu: clone main nav links into a simple stacked list
+    (function(){
+      var menuToggle = document.getElementById('menuToggle');
+      var mobileNav = document.getElementById('mobileNav');
+      function buildMobileNav(){
+        var nav = document.createElement('nav');
+        nav.style.display = 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.gap = '8px';
+        nav.setAttribute('aria-label','Mobile navigation');
+        var links = [
+          {href:'#projects', text:'Projects'},
+          {href:'#focus', text:'Current Focus'},
+          {href:'#about', text:'About'},
+          {href:'#contact', text:'Contact'}
+        ];
+        links.forEach(function(l){
+          var a = document.createElement('a');
+          a.href = l.href;
+          a.textContent = l.text;
+          a.style.padding = '10px 12px';
+          a.style.borderRadius = '8px';
+          a.style.color = 'var(--text)';
+          a.style.background = 'transparent';
+          a.style.textDecoration = 'none';
+          a.addEventListener('mouseover', function(){ a.style.background = 'rgba(255,255,255,0.02)'; });
+          a.addEventListener('mouseout', function(){ a.style.background = 'transparent'; });
+          nav.appendChild(a);
+        });
+        mobileNav.appendChild(nav);
+      }
+      buildMobileNav();
+
+      menuToggle.addEventListener('click', function(){
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        mobileNav.style.display = expanded ? 'none' : 'block';
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(e){
+          var target = document.querySelector(this.getAttribute('href'));
+          if(target){
+            e.preventDefault();
+            target.scrollIntoView({behavior:'smooth', block:'start'});
+            // close mobile nav on selection
+            if(window.innerWidth <= 920){
+              mobileNav.style.display = 'none';
+              menuToggle.setAttribute('aria-expanded','false');
+            }
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!--
+    Notes:
+    - Single-file, no external dependencies.
+    - Sections are semantic with IDs to allow linking and easy expansion.
+    - Styles use CSS variables for a restrained dark palette; adjust colors in :root.
+    - The layout is responsive: grid -> single column on small screens.
+    - Mobile nav is intentionally minimal and injected via JS for simplicity.
+  -->
+</body>
+</html>
